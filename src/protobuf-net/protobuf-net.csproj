@@ -3,7 +3,7 @@
     <AssemblyName>protobuf-net</AssemblyName>
     <Title>protobuf-net</Title>
     <Description>Provides simple access to fast and efficient "Protocol Buffers" serialization from .NET applications</Description>
-    <TargetFrameworks>net40;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>EMIT_ASSEMBLY_INFO</DefineConstants>
     <!-- new build tools spit these out -->
@@ -18,13 +18,10 @@
     <Configurations>Debug;Release;VS</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'VS'">
-    <TargetFrameworks>$(TargetFrameworks);net20;net35</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);</TargetFrameworks>
   </PropertyGroup>
   <!-- define configuration per-platform -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net20'">
-    <FeatureServiceModel>false</FeatureServiceModel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>$(DefineConstants);COREFX</DefineConstants>
     <ImportLibs>core</ImportLibs>
     <FeatureServiceModel>false</FeatureServiceModel>
@@ -43,14 +40,6 @@
   <PropertyGroup Condition="'$(PlatformBinaryFormatter)' == 'true'">
     <DefineConstants>$(DefineConstants);PLAT_BINARYFORMATTER</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition="'$(ImportLibs)' == 'net'">
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(ImportLibs)|$(FeatureServiceModel)' == 'net|true'">
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Runtime.Serialization" />
-  </ItemGroup>
   <ItemGroup Condition="'$(ImportLibs)' == 'core'">
     <!-- could make this more granular to respect the options, but no need yet -->
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />

@@ -1,5 +1,6 @@
 ﻿#if !NO_RUNTIME
 using System;
+using System.Linq;
 #if FEAT_IKVM
 using Type = IKVM.Reflection.Type;
 using IKVM.Reflection;
@@ -36,7 +37,7 @@ namespace ProtoBuf.Meta
             return result;
 #else
 #if WINRT || COREFX
-            Attribute[] all = System.Linq.Enumerable.ToArray(type.GetTypeInfo().GetCustomAttributes(inherit));
+            Attribute[] all = System.Linq.Enumerable.ToArray(type.GetTypeInfo().GetCustomAttributes(inherit).Select(x => x as Attribute));
 #else
             object[] all = type.GetCustomAttributes(inherit);
 #endif
@@ -62,7 +63,7 @@ namespace ProtoBuf.Meta
             return result;
 #else
 #if WINRT || COREFX
-            Attribute[] all = System.Linq.Enumerable.ToArray(member.GetCustomAttributes(inherit));
+            Attribute[] all = System.Linq.Enumerable.ToArray(member.GetCustomAttributes(inherit).Select(x => x as Attribute));
 #else
             object[] all = member.GetCustomAttributes(inherit);
 #endif
